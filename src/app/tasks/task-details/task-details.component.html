@@ -1,0 +1,12 @@
+<div class="card">
+  <img [src]="imageURL" class="card-img-top" />
+  <div class="card-body">
+    <h5 class="card-title">{{ task.title }}</h5>
+    <p class="card-text">
+      {{ task.content }}
+    </p>
+    <button [routerLink]="['/update', task.id]" class="btn btn-primary">
+      Update
+    </button>
+  </div>
+</div>

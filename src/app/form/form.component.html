@@ -1,0 +1,103 @@
+<form [formGroup]="taskForm" (submit)="submit()">
+  <div class="input-group mb-3">
+    <span class="input-group-text">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-person-plus-fill"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
+        />
+        <path
+          fill-rule="evenodd"
+          d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"
+        />
+      </svg>
+    </span>
+    <input
+      [formControl]="username"
+      value="heba"
+      readonly="true"
+      type="text"
+      class="form-control"
+      placeholder="heba"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="title" class="form-label">Task title</label>
+    <input
+      [value]="task.title"
+      [formControl]="title"
+      type="text"
+      class="form-control"
+      id="title"
+      required
+    />
+    <!-- handling errors -->
+    <ng-container *ngIf="title.touched && title.dirty">
+      <p *ngIf="title.errors?.['required']" class="text-danger">
+        Field is required.
+      </p>
+      <p *ngIf="title.errors?.['minlength']" class="text-danger">
+        You entered
+        {{ title.errors?.['minlength'].actualLength }} chars. It must be at
+        least
+        {{ title.errors?.['minlength'].requiredLength }}
+      </p>
+    </ng-container>
+  </div>
+
+  <div class="mb-3">
+    <label for="content" class="form-label">Task content</label>
+    <textarea
+      [formControl]="content"
+      [value]="task.content"
+      class="form-control"
+      id="content"
+      rows="3"
+      required
+    ></textarea>
+    <!-- handling errors -->
+    <ng-container *ngIf="content.touched && content.dirty">
+      <p *ngIf="content.errors?.['required']" class="text-danger">
+        Field is required.
+      </p>
+      <p *ngIf="content.errors?.['minlength']" class="text-danger">
+        You entered
+        {{ content.errors?.['minlength'].actualLength }} chars. It must be at
+        least
+        {{ content.errors?.['minlength'].requiredLength }}
+      </p>
+    </ng-container>
+  </div>
+
+  <div class="mb-3">
+    <label for="formFile" class="form-label">Choose image for task</label>
+    <input
+      (change)="upload($event)"
+      class="form-control"
+      type="file"
+      accept="image/png, image/gif, image/jpeg"
+      id="formFile"
+    />
+    <!-- handling errors -->
+    <ng-container *ngIf="image.touched && image.dirty">
+      <p *ngIf="image.errors?.['required']" class="text-danger">
+        Field is required.
+      </p>
+      <p *ngIf="!!imageErr" class="text-danger">
+        {{ imageErr }}
+      </p>
+    </ng-container>
+  </div>
+
+  <ng-container *ngIf="updateMode">
+    <img [src]="imageURL" />
+  </ng-container>
+
+  <button type="submit" class="btn btn-primary mt-2">Submit</button>
+</form>

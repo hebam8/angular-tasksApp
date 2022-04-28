@@ -1,0 +1,30 @@
+<div class="card mb-3 position-relative" style="max-width: 600px">
+  <div class="row g-0">
+    <div class="col-sm-4">
+      <img
+        [src]="imageURL"
+        class="img-fluid rounded-start"
+        [alt]="task.image"
+      />
+    </div>
+    <div class="col-sm-8">
+      <div class="card-body">
+        <h5 class="card-title">{{ task.title }}</h5>
+        <p class="card-text">
+          {{ task.content }}
+        </p>
+        <p class="card-text">
+          <small class="text-muted">{{ task.username }}</small>
+        </p>
+      </div>
+      <div class="position-absolute bottom-0 end-0">
+        <button (click)="delete(task)" class="btn btn-danger me-2">
+          Delete
+        </button>
+        <button [routerLink]="['/tasks', task.id]" class="btn btn-info">
+          show
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
